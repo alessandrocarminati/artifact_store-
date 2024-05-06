@@ -17,6 +17,11 @@ import (
 	"bytes"
 )
 
+var Build string 
+var Version string 
+var Hash string 
+var Dirty string
+
 const UplURL = "/upload"
 const DirURL = "/dir"
 
@@ -105,6 +110,7 @@ func confOk(c *Config) bool {
 
 func main() {
 	var c Config
+	fmt.Printf("artifact_store Ver. %s.%s (%s) %s\n", Version, Build, Hash, Dirty)
 	c.IsServer =		flag.Bool("server", false, "Run as server")
 	c.ServerPort =		flag.Int("port", 8080, "If server, port to bind the service, if client, server port to connect")
 	c.ServerAddress =	flag.String("address", "0.0.0.0", "If server, address to bind the service, if client, server to connect")

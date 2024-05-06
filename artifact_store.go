@@ -69,8 +69,11 @@ func generateHTMLTable(directory string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+fmt.Printf("artifact_store Ver. %s.%s (%s) %s\n", Version, Build, Hash, Dirty)
 
-	htmlTable := "<table border='1'><tr><th>Description</th><th>Type</th><th>architecture</th><th>scope</th><th>Version</th><th>original file name</th></tr>"
+	htmlTable := fmt.Sprintf("<html><head><title>artifact_store Ver. %s.%s (%s) %s</title></head><body>\n", Version, Build, Hash, Dirty)
+
+	htmlTable += "<table border='1'><tr><th>Description</th><th>Type</th><th>architecture</th><th>scope</th><th>Version</th><th>original file name</th></tr>"
 
 	for _, file := range files {
 		if file.IsDir() || !strings.HasSuffix(file.Name(), ".meta") {
@@ -95,7 +98,7 @@ func generateHTMLTable(directory string) (string, error) {
 		htmlTable += fmt.Sprintf("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", metadata.Description, metadata.Type, metadata.Architecture, metadata.Scope, metadata.Version, fileLink)
 	}
 
-	htmlTable += "</table>"
+	htmlTable += "</table></body></html>"
 
 	return htmlTable, nil
 }
